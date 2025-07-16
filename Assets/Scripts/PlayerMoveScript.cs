@@ -93,13 +93,13 @@ public class PlayerMoveScript : MonoBehaviour
     {
 
         if(JumpMove){
-            rigid.velocity = new Vector2(rigid.velocity.x, Jumpflap);
+            rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, Jumpflap);
             JumpMove = false;
         }
         if(Move){
-            rigid.velocity = new Vector2(x * MoveSpeed, rigid.velocity.y);
+            rigid.linearVelocity = new Vector2(x * MoveSpeed, rigid.linearVelocity.y);
         }else{
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
+            rigid.linearVelocity = new Vector2(0, rigid.linearVelocity.y);
         }
 
 

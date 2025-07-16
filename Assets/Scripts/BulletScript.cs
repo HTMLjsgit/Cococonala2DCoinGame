@@ -24,7 +24,7 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rigid.velocity = new Vector2(direction * speed, 0);
+        rigid.linearVelocity = new Vector2(direction * speed, 0);
         //発射位置から現在の位置を取得して、DistanceDestroyよりも超えていたらObjectを削除
         if(Mathf.Abs(this.transform.position.x - init_position_x) > DistanceDestroy){
             Destroy(this.gameObject);

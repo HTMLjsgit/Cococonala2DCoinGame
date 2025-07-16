@@ -39,9 +39,9 @@ public class EnemyMove : MonoBehaviour
             Move = false;
         }
         if(Move){
-            rigid.velocity = new Vector2(DirectionX * speed, rigid.velocity.y);
+            rigid.linearVelocity = new Vector2(DirectionX * speed, rigid.linearVelocity.y);
         }else{
-            rigid.velocity = Vector2.zero;
+            rigid.linearVelocity = Vector2.zero;
         }
 
     }
