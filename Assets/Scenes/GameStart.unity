@@ -558,8 +558,8 @@ RectTransform:
   m_GameObject: {fileID: 312990084}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.11, y: 1.11, z: 1.11}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1806130079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -590,7 +590,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 8f5387548c2969a469d26d6a0f42b522, type: 3}
-    m_FontSize: 23
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -601,7 +601,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "PlusMan\u306E\u5192\u967A"
+  m_Text: "\u30B3\u30A4\u30F3\u96C6\u3081"
 --- !u!222 &312990087
 CanvasRenderer:
   m_ObjectHideFlags: 0

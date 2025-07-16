@@ -11,8 +11,8 @@ public class PlayerMoveScript : MonoBehaviour
     public float MoveSpeedUp;
     public KeyCode JumpKey;
     public KeyCode SpeedUpKey;
-    private float x = 0;
-    private float y = 0;
+    public float x = 0;
+    public float y = 0;
     private bool SpeedUpMode;
     public bool IsGround;
     public GroundCheckScript ground_check_script; 
@@ -27,7 +27,7 @@ public class PlayerMoveScript : MonoBehaviour
     private float InitSpeed;
     private float JumpPowerUpTime;
 
-    private bool JumpMove;
+    public bool JumpMove;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,8 +40,8 @@ public class PlayerMoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        x = Input.GetAxisRaw("Horizontal");
+        y = Input.GetAxisRaw("Vertical");
         JumpKeyPush = Input.GetButtonDown("Vertical");
         SpeedUpMode = Input.GetKey(SpeedUpKey);
         Debug.Log("VericalKey: " + JumpKeyPush);
@@ -67,7 +67,7 @@ public class PlayerMoveScript : MonoBehaviour
         if(x != 0){
             this.transform.localScale = new Vector2(Direction * DefaultLocalScale.x, DefaultLocalScale.y);
         }
-        if(JumpKeyPush){
+        if(JumpKeyPush && y > 0){
             if(IsGround){
                 JumpAudioSource.PlayOneShot(JumpAudioSource.clip);
                 JumpMove = true;

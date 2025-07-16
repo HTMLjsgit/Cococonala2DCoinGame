@@ -21,8 +21,6 @@ public class PlayerStatus : MonoBehaviour
 
     PlayerController player_controller;
 
-    bool death_once = false;
-
     [Header("弾の設定")]
     public float AttackPowerBullet;
     public float BulletSpeed;
@@ -47,17 +45,12 @@ public class PlayerStatus : MonoBehaviour
             HP -= 10;
         }
         HPSlider.value = HP / MaxHP;
-        if(HP <= 0){
+        if (HP <= 0)
+        {
             //もし死んだら
             //DeathEventを実行。
-            Death = true;
-            if(!death_once){
-                death_once = true;
-            }
-            if(Death){
-                anim.SetBool("Death", death_once);
-            }
             DeathEvent.Invoke();
+            Death = true;
         }
     }
     public void HPSet(float IncreaseHP){
@@ -69,12 +62,12 @@ public class PlayerStatus : MonoBehaviour
             //プレイヤーが攻撃を受ける関数
             HP -= _attacked;
             AttackedEvent.Invoke();
-            anim.SetTrigger("Hurt");
         }
 
     }
 
-    public void DeathAnimationEnd(){
+    public void DeathAnimationEnd()
+    {
         //Deathアニメーションが終了したら(AnimationからこのFunctionを指定しています)
         DeathAnimationEndEvent.Invoke();
     }

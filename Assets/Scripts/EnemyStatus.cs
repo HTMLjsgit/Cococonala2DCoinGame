@@ -33,10 +33,9 @@ public class EnemyStatus : MonoBehaviour
     {
         //もしHPが0以下になれば死ぬ(破壊する)
         if(this.HP <= 0){
-            DeathEvent.Invoke();
             Death = true;
             if(!death_once){
-                anim.SetBool("Death", Death);
+                DeathEvent.Invoke();
             }
             if(!death_once){
                 death_once = true;
@@ -49,7 +48,6 @@ public class EnemyStatus : MonoBehaviour
         if(!Death){
             AttackedEvent.Invoke();
             this.HP -= _attcked;
-            anim.SetTrigger("Hurt");
         }
 
         

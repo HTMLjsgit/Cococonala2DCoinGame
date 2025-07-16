@@ -13,6 +13,7 @@ public class EnemyMove : MonoBehaviour
 
     Vector3 DefaultLocalScale;
     public bool Move = true;
+    public bool PermitMove = true;
     public bool LookAtPlayer = false;
     EnemyController enemy_controller;
     GameObject Player;
@@ -38,9 +39,13 @@ public class EnemyMove : MonoBehaviour
             //銃を撃ってる間は動けないようにする
             Move = false;
         }
-        if(Move){
+        
+        if (Move && PermitMove)
+        {
             rigid.linearVelocity = new Vector2(DirectionX * speed, rigid.linearVelocity.y);
-        }else{
+        }
+        else
+        {
             rigid.linearVelocity = Vector2.zero;
         }
 
