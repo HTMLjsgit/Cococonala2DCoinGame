@@ -16,21 +16,23 @@ public class HPCoinScript : MonoBehaviour
         my_source = this.gameObject.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player"){
-            if(!AlreadyPassed){
-                anim.SetTrigger("Change");
+        if (other.gameObject.tag == "Player")
+        {
+            if (!AlreadyPassed)
+            {
+                anim.SetTrigger("Get");
                 my_source.PlayOneShot(my_source.clip);
                 player_status.HPSet(3);
                 AlreadyPassed = true;
             }
 
         }
+    }
+    public void GetAnimationEnd()
+    {
+        anim.enabled = false;
+        Destroy(this.gameObject, 1f);
     }
 }
