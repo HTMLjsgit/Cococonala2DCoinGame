@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class StageController : MonoBehaviour
 {
@@ -10,11 +11,21 @@ public class StageController : MonoBehaviour
     private TextMeshProUGUI goalHaveCoinTextUI;
     [SerializeField]
     private TextMeshProUGUI StageCountTextUI;
+    [SerializeField]
+    private Button NextSceneButtonUI;
     private GameControllerScript gameControllerScript;
+    private PlayerStatus playerStatus;
+    private SceneMoveScript sceneMoveScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        sceneMoveScript = this.gameObject.GetComponent<SceneMoveScript>();
+        playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
         gameControllerScript = GameObject.FindWithTag("GameController").GetComponent<GameControllerScript>();
+        NextSceneButtonUI.onClick.AddListener(() =>
+        {
+            sceneMoveScript.SceneMove();
+        });
     }
 
     // Update is called once per frame
@@ -24,7 +35,7 @@ public class StageController : MonoBehaviour
     }
     public void Goal()
     {
-        goalHaveCoinTextUI.SetText("");
-        StageCountTextUI.SetText("");
+        goalHaveCoinTextUI.SetText($"{playerStatus.HaveCoins}");
+        StageCountTextUI.SetText($"{gameControllerScript.StageCountHistory[0]}");
     }
 }
