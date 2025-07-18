@@ -6,6 +6,7 @@ public class GameControllerScript : MonoBehaviour
 {
     GameObject Player;
     public List<string> HistroySceneName;
+    public List<int> StageCountHistory;
     public string NowSceneName;
     public string BeforeSceneName;
 
@@ -53,8 +54,14 @@ public class GameControllerScript : MonoBehaviour
             player_status.HP = this.PlayerMaxHP;
         }
     }
-    void OnUnLoaded(Scene scene){
+    void OnUnLoaded(Scene scene)
+    {
         BeforeSceneName = scene.name;
         HistroySceneName.Add(scene.name);
+        if (scene.name.Contains("Stage"))
+        {
+            string stageCount = scene.name.Replace("Stage", "");
+            StageCountHistory.Add(int.Parse(stageCount));
+        }
     }
 }

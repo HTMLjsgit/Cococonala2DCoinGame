@@ -92,7 +92,7 @@ public class PlayerStatus : MonoBehaviour
     public void HPSet(float IncreaseHP){
         HP = Mathf.Clamp(HP + IncreaseHP, 0, MaxHP);
     }
-    
+
     public void CoinSet(int IncreaseCoin)
     {
         HaveCoins += IncreaseCoin;

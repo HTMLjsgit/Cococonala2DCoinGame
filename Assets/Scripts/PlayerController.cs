@@ -28,7 +28,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(BulletCreateKey)){
-            BulletCreate();
+            if (player_status.HaveCoins > 0)
+            {
+                BulletCreate();
+            }
         }
         if(BulletShot){
             // player_move_script.Move = false;
@@ -36,15 +39,7 @@ public class PlayerController : MonoBehaviour
             BulletShot = false;
             // 弾を発射したらPlayerMoveScriptをfalseにする。
         }
-        // if(MovePermitTimeMeasure){
-        //     //時間がある程度経過したらtrueにする計測開始。
-        //     MovePermitTime += Time.deltaTime;
-        //     if(MovePermitTime > 0.05f){
-        //         player_move_script.Move = true;
-        //         MovePermitTimeMeasure = false;
-        //         MovePermitTime = 0;
-        //     }
-        // }
+
     }
     public void BulletCreate(){
         GameObject Bullet = Instantiate(BulletPrefab, BulletPrefabCreatePositionObject.transform.position, Quaternion.identity);
@@ -52,7 +47,9 @@ public class PlayerController : MonoBehaviour
         BulletShot = true;
         // player_move_script.Move = false;
         BulletShotAudio.PlayOneShot(BulletShotAudio.clip);
-        if(bullet_script != null){
+        player_status.CoinSet(-1);
+        if (bullet_script != null)
+        {
             bullet_script.direction = player_move_script.DirectionOfLocalScaleX;
             bullet_script.speed = player_status.BulletSpeed;
             bullet_script.DistanceDestroy = player_status.BulletDestroyDistance;
