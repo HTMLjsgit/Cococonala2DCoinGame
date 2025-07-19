@@ -47,7 +47,7 @@ public class PlayerStatus : MonoBehaviour
     public float countSoundInterval = 0.05f; // カウントアップ音の間隔
     public float countSoundPitchMin = 0.8f; // 最小ピッチ
     public float countSoundPitchMax = 1.2f; // 最大ピッチ
-    
+    public int KillEnemyCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,11 +92,22 @@ public class PlayerStatus : MonoBehaviour
     public void HPSet(float IncreaseHP){
         HP = Mathf.Clamp(HP + IncreaseHP, 0, MaxHP);
     }
-
+    public void KillEnemyCountSet()
+    {
+        KillEnemyCount++;
+    }    
     public void CoinSet(int IncreaseCoin)
     {
         HaveCoins += IncreaseCoin;
-        AnimateCoinIncrease();
+        if (IncreaseCoin > 0)
+        {
+            AnimateCoinIncrease();
+        }
+        else
+        {
+            displayedCoins = HaveCoins;
+            UpdateCoinDisplay();
+        }
     }
     
     // 音なしでコインを増やす（Coinオブジェクト側で音を再生する場合）

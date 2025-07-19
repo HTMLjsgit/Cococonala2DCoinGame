@@ -28,6 +28,7 @@ public class PlayerMoveScript : MonoBehaviour
     private float JumpPowerUpTime;
 
     public bool JumpMove;
+    public bool PermitMove = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,7 @@ public class PlayerMoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!PermitMove) return;
         x = Input.GetAxisRaw("Horizontal");
         y = Input.GetAxisRaw("Vertical");
         JumpKeyPush = Input.GetButtonDown("Vertical");
@@ -91,7 +93,7 @@ public class PlayerMoveScript : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        if (!PermitMove) return;
         if(JumpMove){
             rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, Jumpflap);
             JumpMove = false;
@@ -101,7 +103,6 @@ public class PlayerMoveScript : MonoBehaviour
         }else{
             rigid.linearVelocity = new Vector2(0, rigid.linearVelocity.y);
         }
-
 
 
     }

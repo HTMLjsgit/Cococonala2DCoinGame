@@ -14,7 +14,7 @@ public class AttackColliderScript : MonoBehaviour
 
     GameObject Player;
     PlayerStatus player_status;
-
+    private float StayTimeNow;
     public UnityEvent HittingEvent; //ヒットしたときのイベント
     // Start is called before the first frame update
     void Start()
@@ -28,21 +28,51 @@ public class AttackColliderScript : MonoBehaviour
     {
         
     }
-
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(mine_status == MineStatus.Player){
-            //自分がPlayerならばEnemyに当たったとき
-            if(other.gameObject.tag == "Enemy"){
+        if (mine_status == MineStatus.Enemy)
+        {
+            //自分がEnemyならばPlayerに当たったとき
+            if (other.gameObject.tag == "Player")
+            {
+                player_status.Attacked(AttackPower);
+                HittingEvent.Invoke();
+                StayTimeNow = 0;
+            }
+        }
+        else if (mine_status == MineStatus.Player)
+        {
+            Debug.Log("何かに当たったね！" + other.gameObject);
+            if (other.gameObject.tag == "Enemy")
+            {
+
                 EnemyStatus enemy_status = other.gameObject.GetComponent<EnemyStatus>();
                 enemy_status.Attacked(AttackPower);
                 HittingEvent.Invoke();
             }
+        }
+
+    }
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if(mine_status == MineStatus.Player){
+            //自分がPlayerならばEnemyに当たったとき
+            // if(other.gameObject.tag == "Enemy"){
+            //     EnemyStatus enemy_status = other.gameObject.GetComponent<EnemyStatus>();
+            //     enemy_status.Attacked(AttackPower);
+            //     HittingEvent.Invoke();
+            // }
         }else if(mine_status == MineStatus.Enemy){
             //自分がEnemyならばPlayerに当たったとき
             if(other.gameObject.tag == "Player"){
-                player_status.Attacked(AttackPower);
-                HittingEvent.Invoke();
+                StayTimeNow += Time.deltaTime;
+                if (StayTimeNow > 1)
+                {
+                    player_status.Attacked(AttackPower);
+                    HittingEvent.Invoke();
+                    StayTimeNow = 0;
+                }
+
             }
         }
 

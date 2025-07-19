@@ -14,6 +14,7 @@ public class EnemyStatus : MonoBehaviour
     public UnityEvent DeathEvent; 
     public UnityEvent AttackedEvent;
     public UnityEvent DeathAnimationEndEvent;
+    private PlayerStatus playerStatus;
     public bool Death;
     Animator anim;
     bool death_once;
@@ -25,6 +26,7 @@ public class EnemyStatus : MonoBehaviour
             attack_col_script.AttackPower = this.AttackPower;
 
         }
+        playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
         anim = this.gameObject.GetComponent<Animator>();
     }
 
@@ -34,8 +36,27 @@ public class EnemyStatus : MonoBehaviour
         //もしHPが0以下になれば死ぬ(破壊する)
         if(this.HP <= 0){
             Death = true;
-            if(!death_once){
+            if (!death_once)
+            {
+                playerStatus.KillEnemyCountSet();
                 DeathEvent.Invoke();
+
+                // 親以下の全Transformを取ってきて…
+                Transform[] allChildren = transform.GetComponentsInChildren<Transform>(true);
+
+                foreach (var child in allChildren)
+                {
+                    // タグが"attackCollider"ならGameObjectを使って何かする
+                    if (child.CompareTag("AttackCollider"))
+                    {
+                        GameObject attackColliderObj = child.gameObject;
+                        attackColliderObj.SetActive(false);
+                    }
+                    if (child.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
             }
             if(!death_once){
                 death_once = true;
@@ -54,7 +75,8 @@ public class EnemyStatus : MonoBehaviour
     }
 
 
-    public void DeathAnimationEnd(){
+    public void DeathAnimationEnd()
+    {
         //Deathアニメーションが終了したら(AnimationからこのFunctionを指定しています)
         DeathAnimationEndEvent.Invoke();
     }

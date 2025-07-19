@@ -8,7 +8,13 @@ public class EnemyMove : MonoBehaviour
     public float speed;
     public float DirectionX = 1;
     Rigidbody2D rigid;
-
+    [SerializeField]
+    private enum MoveVector
+    {
+        X,
+        Y
+    };
+    [SerializeField] private MoveVector moveVector;
     private bool turn;
 
     Vector3 DefaultLocalScale;
@@ -42,7 +48,14 @@ public class EnemyMove : MonoBehaviour
         
         if (Move && PermitMove)
         {
-            rigid.linearVelocity = new Vector2(DirectionX * speed, rigid.linearVelocity.y);
+            if (moveVector == MoveVector.X)
+            {
+                rigid.linearVelocity = new Vector2(DirectionX * speed, rigid.linearVelocity.y);
+            }
+            else if(moveVector == MoveVector.Y)
+            {
+                rigid.linearVelocity = new Vector2(rigid.linearVelocity.x,DirectionX * speed);
+            }
         }
         else
         {

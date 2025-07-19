@@ -8,6 +8,7 @@ TagManager:
   - AttackCollider
   - Enemy
   - StageController
+  - MoveFloor
   layers:
   - Default
   - TransparentFX

@@ -397,6 +397,7 @@ MonoBehaviour:
   - Turn
   speed: 3
   DirectionX: 1
+  moveVector: 0
   Move: 1
   PermitMove: 1
   LookAtPlayer: 0
